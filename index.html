@@ -916,6 +916,9 @@ img.ink{mix-blend-mode:multiply}
 .lc-code{position:absolute;right:0;top:12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--mute)}
 @media (max-width:860px){.kx .kslide.site{grid-template-columns:1fr}.bw-row{grid-template-columns:repeat(3,1fr)}.lc-g{grid-template-columns:1fr 1fr}}
 .zoom.hz .zoom-box{width:fit-content;max-width:100%;margin:0 auto}.zoom.hz .zoom-box,.zoom.hz .zoom-box.on{cursor:crosshair}.zoom.hz .zoom-box img{transition:transform .2s ease}
+.k8 .sf img{aspect-ratio:16/9;object-fit:contain;background:#fff}
+.k8-t{padding:10px 2px 4px}.k8-t b{display:block;font-weight:500;font-size:14px;margin-bottom:4px}.k8-t p{margin:0;font-size:12.5px;line-height:1.5;color:var(--mute,#666)}
+.k8-key{display:flex;gap:14px;margin-top:6px!important}.k8-key span{display:inline-flex;align-items:center;gap:6px}.k8-key i{width:10px;height:10px;display:inline-block}
 </style>
 
 <header><div class="wrap">
@@ -1585,6 +1588,16 @@ document.addEventListener("click",e=>{const z=e.target.closest(".swap-zone");if(
 
 /* ---------- v2 layout: slides with a text column and a media column, after Nadira's references ---------- */
 const IA=(en,zh)=>`<div class="ia"><span class="ia-dot" aria-hidden="true"></span><b>${L==="zh"?"可交互":"Interactive"}</b>${esc(L==="zh"?zh:en)}</div>`;
+const K8=[
+ {en:["Original location","How should the older buildings respond to development?"],zh:["原址","老建筑应如何回应开发？"]},
+ {en:["Real-estate ending","A possible modern residential plan, not yet built."],zh:["地产化结局","一种可能的现代住宅区规划，尚未建成。"]},
+ {en:["Space syntax","Borrowing the integration of the street: the more turns a node has, the deeper and more private it becomes."],zh:["空间句法","借用街道的整合度：节点转折越多，越深、越私密。"]},
+ {en:["New road network","Building roads means tearing down homes; households are moved off the planned roads."],zh:["新路网","修路意味着拆房，规划道路上的住户被迁出。"]},
+ {en:["Stage 1 · Cradle","Modules and old houses iterate on each other; commercial one-unit housing emerges."],zh:["阶段一 · 摇篮","模块与老房子相互迭代，出现商业化的单元住宅。"],key:[["#f0922f","Commercial tenants","商业租户"],["#a8955a","Old residences","老住宅"]]},
+ {en:["Stage 2 · Enclosure","The commercial street is completed; the housing authority begins planning multi-storey residential areas."],zh:["阶段二 · 围合","商业街建成，住建部门开始规划多层住宅区。"]},
+ {en:["Stage 3 · Balance","Each lot gets a clear function, and multi-storey buildings rise."],zh:["阶段三 · 平衡","每个地块的功能分区明确，多层建筑向上加建。"]},
+ {en:["Stage 4 · Saturation","Further extensions must consider spacing and form, so they can be built as demand requires."],zh:["阶段四 · 饱和","后续扩建需考虑间距与形体，按需求逐步加建。"]}
+];
 const RN=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 const FC=(c,cap,n,cls)=>`<figure class="sf ${cls||""}"><img src="${IMG(c)}" alt="${esc(cap||c)}" loading="lazy"><figcaption><span>${n?`<i>${n}</i>`:""}${esc(cap||"")}</span><code>${c}</code></figcaption></figure>`;
 const SL=(kick,h,txt,media,cls)=>`<section class="kslide ${cls||""}"><div class="s-txt"><div class="s-k">${esc(kick||"")}</div>${h?`<h2 class="s-h">${esc(h)}</h2>`:""}${(txt||[]).map(x=>`<p${/^Hover/.test(x)?' class="hint"':""}>${esc(x)}</p>`).join("")}</div><div class="s-media">${media}</div></section>`;
@@ -1609,7 +1622,7 @@ article=(function(prev){return function(p,t,k){
    ${SL("Method","Double diamond model",[KT.diamond],FC("KSG-13","Double diamond model pushed to logic.","I","big"))}
    ${SL("Logic","Why walkability",[KT.walk1,KT.walk2],FC("KSG-06","Walkable city research: Anyang, Cairo-Giza, Urumqi, Erbil, Paris, Barcelona.","I","m55"))}
    <section class="kslide form"><div class="s-txt"><div class="s-k">Planning</div><h2 class="s-h">The logic of community formation</h2>${IA("Move the mouse over the plan: two areas switch to close-up views.","鼠标在总平面上移动，两个区域会切换成放大的轴测图。")}</div><div class="form-plan">${swapHTML()}</div>
-     <div class="s-media"><div class="tiles">${[1,2,3,4,5,6,7,8].map(i=>`<figure class="sf tile"><img src="${IMG("KSG-08-"+i)}" alt="" loading="lazy"><figcaption><span><i>${RN[i-1]}</i></span><code>KSG-08-${i}</code></figcaption></figure>`).join("")}</div></div></section>
+     <div class="s-media"><div class="tiles k8">${K8.map((k,i)=>`<figure class="sf tile"><img src="${IMG("KSG-08-"+(i+1))}" alt="${esc(k.en[0])}" loading="lazy"><figcaption><span><i>${RN[i]}</i></span><code>KSG-08-${i+1}</code></figcaption><div class="k8-t"><b>${esc((L==="zh"?k.zh:k.en)[0])}</b><p>${esc((L==="zh"?k.zh:k.en)[1])}</p>${k.key?`<p class="k8-key">${k.key.map(([c,en,zh])=>`<span><i style="background:${c}"></i>${esc(L==="zh"?zh:en)}</span>`).join("")}</p>`:""}</div></figure>`).join("")}</div></div></section>
    <section class="kslide wide"><div class="s-full"><div class="s-k">Building</div><h2 class="s-h">Plan and views</h2>${IA("Click the numbered points on the plan to see the view from each one.","点击平面上的数字点位，查看对应位置的效果图。")}${planHTML(KX.plan,"kxplan")}</div></section>
    ${SL("Building","Section and spatial operations",[KT.ops],"","texthead")}
    <section class="kslide wide sect zoomtall"><div class="s-full">${IA("Move the mouse over the section to magnify it.","鼠标移到剖面图上即可放大查看。")}<figure class="sf huge zoom hz" data-zoom="3"><div class="zoom-box"><img src="${IMG("KSG-14")}" alt="Section A-A" draggable="false"></div><figcaption><span><i>I</i>Section A-A.</span><code>KSG-14</code></figcaption></figure></div></section>
